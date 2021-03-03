@@ -3,9 +3,8 @@ A group of scripts to help practice for Codebusters
 
 ## Usage:
 0. Have Python 3 installed
-1. Run "python3 patterns.py" in the terminal
-2. Play! You don't need to worry about case.
-3. Enter 'end' at any time to end the session (or quit out)
+1. Run "python3 cbpractice.py" in the terminal
+2. Follow the instructions!
 
 ## Current features:
 - Pattern practice
