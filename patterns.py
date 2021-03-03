@@ -1,6 +1,7 @@
 import random
 from random import shuffle
 
+# constant strings
 alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 sep = "======================================"
 
@@ -59,17 +60,25 @@ def inLoop(words, streak, correct, total, end):
     print(sep)
     return streak, correct, total, end
 
+def initWordsAndStructs(file):
+    words = []
+    structures = dict()
+    for w in file:
+        word = w.strip().upper()
+        structWord = structure(word)
+        words += [[word, structWord]]
+        if structWord in structures:
+            structures[structWord].append(word)
+        else:
+            structures[structWord] = [word]
+    return words, structures
+
+
 def main():
     # initialization -- word list
     f = open("words.txt", "r")
-    words = []
-    structures = dict()
-    for w in f:
-        word = w.strip().upper()
-        words += [[word, structure(word)]]
+    words, structures = initWordsAndStructs(f)
     f.close()
-
-    print(words)
 
     # initialization -- variables
     inp = ""
