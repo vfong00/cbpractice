@@ -16,6 +16,8 @@ That
 else
 Even
 Accomplishment
+Accomplish
+accomplished
 Which
 Totally
 Tomorrow
@@ -34,3 +36,5 @@ Participate
 Politics
 Existence
 exercise
+elective
+momentum

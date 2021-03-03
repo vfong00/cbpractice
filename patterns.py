@@ -1,4 +1,5 @@
 import random
+import time
 from random import shuffle
 
 # constant strings
@@ -48,7 +49,9 @@ def inLoop(words, structures, streak, correct, total, end):
     wordStruc = encDecStruc[2]
 
     print("Pattern: " + pattern)
+    start = time.time()
     inp = input("Answer: ").strip()
+    elapsed = time.time() - start
     if (inp.lower() == "end"):
         print("\n" + sep)
         return streak, correct, total, True
@@ -66,8 +69,9 @@ def inLoop(words, structures, streak, correct, total, end):
         print("Incorrect. Correct answer(s): " + ", ".join([x for x in structures[wordStruc]]))
         streak = 0
     total += 1
+    input("Press ENTER to continue.")
     print(sep)
-    return streak, correct, total, end
+    return streak, correct, total, elapsed, end
 
 def initWordsAndStructs(file):
     words = []
@@ -93,6 +97,7 @@ def main():
     inp = ""
     streak, correct, total, end = 0, 0, 0, False
     maxStreak = 0
+    totalTime = 0
 
     # initialization -- terminal print
     print(chr(27) + "[2J")
@@ -103,8 +108,9 @@ def main():
 
     # loop
     while not end:
-        streak, correct, total, end = inLoop(words, structures, streak, correct, total, end)
+        streak, correct, total, time, end = inLoop(words, structures, streak, correct, total, end)
         maxStreak = max(streak, maxStreak)
+        totalTime += time
 
     # print ending stats
     print("SESSION SUMMARY: ")
@@ -115,6 +121,7 @@ def main():
     else:
         print("Percentage: 0%")
     print("Highest streak: " + str(maxStreak))
+    print("Average time: " + str(round(totalTime / total, 2)) + "s")
     print("Goodbye :)")
     print(sep + "\n")
 
