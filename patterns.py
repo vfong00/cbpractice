@@ -54,7 +54,7 @@ def inLoop(words, structures, streak, correct, total, end):
     elapsed = time.time() - start
     if (inp.lower() == "end"):
         print("\n" + sep)
-        return streak, correct, total, True
+        return streak, correct, total, 0, True
     ans = inp.upper()
     if (ans == word or ans in structures[wordStruc]):
         print("Correct!")
@@ -69,7 +69,10 @@ def inLoop(words, structures, streak, correct, total, end):
         print("Incorrect. Correct answer(s): " + ", ".join([x for x in structures[wordStruc]]))
         streak = 0
     total += 1
-    input("Press ENTER to continue.")
+    k = input("\nPress ENTER to continue. Type 'end' to end. \n> ")
+    if (k.strip().lower() == "end"):
+        print("\n" + sep)
+        return streak, correct, total, elapsed, True
     print(sep)
     return streak, correct, total, elapsed, end
 
