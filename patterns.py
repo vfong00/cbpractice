@@ -4,8 +4,23 @@ from random import shuffle
 alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 sep = "======================================"
 
+# returns abstracts word to its structure alphabetically
+# ex: PEOPLE -> ABCADB
+# this is used to group together structurally equal words, like "that" and "else"
+def structure(word):
+    uniqueLetters = ""
+    ans = ""
+    for c in word:
+        if c not in uniqueLetters:
+            uniqueLetters += c
+        ans += alpha[uniqueLetters.index(c)]
+    return ans
+
+# given list of words, picks random word and encrypts it randomly
+# returns this word and the original
+# postcondition: no letter previously in the word maps to itself
 def genWord(words):
-    word = random.choice(words)
+    word = random.choice(words)[0]
     ans = ""
     uniqueMaps = False
     while not uniqueMaps:
@@ -22,6 +37,8 @@ def genWord(words):
                 break
     return [ans, word]
 
+# function that's run in the loop
+# basically, a checking prompt for question-answer, and tracks stats
 def inLoop(words, streak, correct, total, end):
     encDec = genWord(words)
     print(encDec[0])
@@ -46,9 +63,13 @@ def main():
     # initialization -- word list
     f = open("words.txt", "r")
     words = []
-    for word in f:
-        words += [word.strip().upper()]
+    structures = dict()
+    for w in f:
+        word = w.strip().upper()
+        words += [[word, structure(word)]]
     f.close()
+
+    print(words)
 
     # initialization -- variables
     inp = ""
@@ -59,7 +80,7 @@ def main():
     print(chr(27) + "[2J")
     print("Welcome to pattern practice.")
     print("Enter 'end' at any time to close.")
-    print("Enter 'help' for more commands and usage.")
+    # print("Enter 'help' for more commands and usage.") (TODO)
     print(sep)
 
     # loop
@@ -78,7 +99,5 @@ def main():
     print("Highest streak: " + str(maxStreak))
     print("Goodbye :)")
     print(sep + "\n")
-
-
 
 main();
