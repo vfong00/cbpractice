@@ -21,7 +21,8 @@ def structure(word):
 # returns this word and the original
 # postcondition: no letter previously in the word maps to itself
 def genWord(words):
-    word = random.choice(words)[0]
+    wordSet = random.choice(words)
+    word = wordSet[0]
     ans = ""
     uniqueMaps = False
     while not uniqueMaps:
@@ -36,25 +37,33 @@ def genWord(words):
                 uniqueMaps = False
                 ans = ""
                 break
-    return [ans, word]
+    return [ans, word, wordSet[1]]
 
 # function that's run in the loop
 # basically, a checking prompt for question-answer, and tracks stats
-def inLoop(words, streak, correct, total, end):
-    encDec = genWord(words)
-    print(encDec[0])
-    inp = input("Answer: ")
+def inLoop(words, structures, streak, correct, total, end):
+    encDecStruc = genWord(words)
+    pattern = encDecStruc[0]
+    word = encDecStruc[1]
+    wordStruc = encDecStruc[2]
+
+    print("Pattern: " + pattern)
+    inp = input("Answer: ").strip()
     if (inp.lower() == "end"):
         print("\n" + sep)
         return streak, correct, total, True
-    if (inp.strip().upper() == encDec[1]):
+    ans = inp.upper()
+    if (ans == word or ans in structures[wordStruc]):
         print("Correct!")
+        altForms = [x for x in structures[wordStruc] if x != ans]
+        if len(altForms) != 0:
+            print("Alternate forms: " + ", ".join(altForms))
         correct += 1
         streak += 1
         if (streak > 4):
             print(streak + " streak.")
     else:
-        print("Incorrect. Correct answer is: " + encDec[1])
+        print("Incorrect. Correct answer(s): " + ", ".join([x for x in structures[wordStruc]]))
         streak = 0
     total += 1
     print(sep)
@@ -94,7 +103,7 @@ def main():
 
     # loop
     while not end:
-        streak, correct, total, end = inLoop(words, streak, correct, total, end)
+        streak, correct, total, end = inLoop(words, structures, streak, correct, total, end)
         maxStreak = max(streak, maxStreak)
 
     # print ending stats
