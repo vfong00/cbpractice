@@ -42,7 +42,7 @@ def genWord(words):
 
 # function that's run in the loop
 # basically, a checking prompt for question-answer, and tracks stats
-def inLoop(words, structures, streak, correct, total, end):
+def inLoop(words, structures, streak, correct, total, end, endAll):
     encDecStruc = genWord(words)
     pattern = encDecStruc[0]
     word = encDecStruc[1]
@@ -52,9 +52,9 @@ def inLoop(words, structures, streak, correct, total, end):
     start = time.time()
     inp = input("Answer: ").strip()
     elapsed = time.time() - start
-    if (inp.lower() == "end"):
+    if (inp.lower() == "return" or inp.lower() == "exit"):
         print("\n" + sep)
-        return streak, correct, total, 0, True
+        return streak, correct, total, 0, True, inp.lower() == "exit"
     ans = inp.upper()
     if (ans == word or ans in structures[wordStruc]):
         print("Correct!")
@@ -69,12 +69,12 @@ def inLoop(words, structures, streak, correct, total, end):
         print("Incorrect. Correct answer(s): " + ", ".join([x for x in structures[wordStruc]]))
         streak = 0
     total += 1
-    k = input("\nPress ENTER to continue. Type 'end' to end. \n> ")
-    if (k.strip().lower() == "end"):
+    k = input("\nPress ENTER to continue. Type 'return' to return to the menu, and 'exit' to stop the program. \n> ")
+    if (k.strip().lower() == "return" or k.strip().lower() == "exit"):
         print("\n" + sep)
-        return streak, correct, total, elapsed, True
+        return streak, correct, total, elapsed, True, k.strip().lower() == "exit"
     print(sep)
-    return streak, correct, total, elapsed, end
+    return streak, correct, total, elapsed, end, endAll
 
 def initWordsAndStructs(file):
     words = []
@@ -90,7 +90,7 @@ def initWordsAndStructs(file):
     return words, structures
 
 
-def main():
+def patterns():
     # initialization -- word list
     f = open("words.txt", "r")
     words, structures = initWordsAndStructs(f)
@@ -98,20 +98,19 @@ def main():
 
     # initialization -- variables
     inp = ""
-    streak, correct, total, end = 0, 0, 0, False
+    streak, correct, total, end, endAll = 0, 0, 0, False, False
     maxStreak = 0
     totalTime = 0
 
     # initialization -- terminal print
     print(chr(27) + "[2J")
     print("Welcome to pattern practice.")
-    print("Enter 'end' at any time to close.")
-    # print("Enter 'help' for more commands and usage.") (TODO)
+    print("Enter 'return' at any time to return to the menu, or 'exit' to stop this program.")
     print(sep)
 
     # loop
     while not end:
-        streak, correct, total, time, end = inLoop(words, structures, streak, correct, total, end)
+        streak, correct, total, time, end, endAll = inLoop(words, structures, streak, correct, total, end, endAll)
         maxStreak = max(streak, maxStreak)
         totalTime += time
 
@@ -127,5 +126,6 @@ def main():
     print("Average time: " + str(round(totalTime / total, 2)) + "s")
     print("Goodbye :)")
     print(sep + "\n")
-
-main();
+    if not endAll:
+        input("(Press ENTER to return)")
+    return endAll
