@@ -120,10 +120,11 @@ def patterns():
     print("Total: " + str(total))
     if total != 0:
         print("Percentage: " + str(round(correct / total * 100, 2)) + "%")
+        print("Average time: " + str(round(totalTime / total, 2)) + "s")
     else:
         print("Percentage: 0%")
+        print("Average time: 0s")
     print("Highest streak: " + str(maxStreak))
-    print("Average time: " + str(round(totalTime / total, 2)) + "s")
     print("Goodbye :)")
     print(sep + "\n")
     if not endAll:
