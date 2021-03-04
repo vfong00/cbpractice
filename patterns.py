@@ -21,9 +21,9 @@ def structure(word):
 # given list of words, picks random word and encrypts it randomly
 # returns this word and the original
 # postcondition: no letter previously in the word maps to itself
-def genWord(words):
-    wordSet = random.choice(words)
-    word = wordSet[0]
+def genWord(words, structures):
+    wordStruct = random.choice(list(structures.keys()))
+    word = random.choice(structures[wordStruct])
     ans = ""
     uniqueMaps = False
     while not uniqueMaps:
@@ -38,12 +38,12 @@ def genWord(words):
                 uniqueMaps = False
                 ans = ""
                 break
-    return [ans, word, wordSet[1]]
+    return [ans, word, wordStruct]
 
 # function that's run in the loop
 # basically, a checking prompt for question-answer, and tracks stats
 def inLoop(words, structures, streak, correct, total, end, endAll):
-    encDecStruc = genWord(words)
+    encDecStruc = genWord(words, structures)
     pattern = encDecStruc[0]
     word = encDecStruc[1]
     wordStruc = encDecStruc[2]

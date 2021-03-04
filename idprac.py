@@ -66,6 +66,7 @@ def idloop():
         elif mode == "morse":
             streak, correct, total, time, end, endAll = idprac(morse, streak, correct, total, end, endAll)
         totalTime += time
+        maxStreak = max(maxStreak, streak)
 
     # print ending stats
     print("SESSION SUMMARY: ")
