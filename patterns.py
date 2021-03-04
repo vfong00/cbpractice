@@ -64,7 +64,7 @@ def inLoop(words, structures, streak, correct, total, end, endAll):
         correct += 1
         streak += 1
         if (streak > 4):
-            print(streak + " streak.")
+            print(str(streak) + " streak.")
     else:
         print("Incorrect. Correct answer(s): " + ", ".join([x for x in structures[wordStruc]]))
         streak = 0
