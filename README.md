@@ -12,12 +12,14 @@ A group of scripts to help practice for Codebusters
   * Accompanying statistics
 - Letter-number practice
   * Two-letter math: adding/subtracting two letters from each other
+- Cipher ID Practice
+  * Letter-number ID
+  * Morse ID
+  * Baconian ID
 
 ## Planned features:
 - More words to the pattern practice
-- Practice for:
-  * letter-number ID
-  * Morse / Baconian ID
 - Discord bot functionality
   * Racing?
+  * Speedruns?
 and more!
