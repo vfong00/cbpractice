@@ -10,12 +10,14 @@ A group of scripts to help practice for Codebusters
 - Pattern practice
   * Takes from word list and provides encrypted form to practice
   * Accompanying statistics
+- Letter-number practice
+  * Two-letter math: adding/subtracting two letters from each other
 
 ## Planned features:
 - More words to the pattern practice
 - Practice for:
-  * letter math
   * letter-number ID
   * Morse / Baconian ID
 - Discord bot functionality
+  * Racing?
 and more!
